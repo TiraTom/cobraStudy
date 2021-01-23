@@ -20,11 +20,11 @@ var CaesarCmd = &cobra.Command{
 	Short: "Break the Caesar cipher",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(caesar(cmd, args))
+		fmt.Println(caesar(args))
 	},
 }
 
-func caesar(cmd *cobra.Command, args []string) []string {
+func caesar(args []string) []string {
 	lowerCaseRunes := []rune(strings.ToLower(args[0]))
 
 	var result []string

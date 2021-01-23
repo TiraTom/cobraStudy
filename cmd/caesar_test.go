@@ -3,13 +3,10 @@ package cmd
 import (
 	"reflect"
 	"testing"
-
-	"github.com/spf13/cobra"
 )
 
 func Test_caesar(t *testing.T) {
 	type args struct {
-		cmd  *cobra.Command
 		args []string
 	}
 	tests := []struct {
@@ -17,11 +14,12 @@ func Test_caesar(t *testing.T) {
 		args args
 		want []string
 	}{
-		// TODO: Add test cases.
+		{name: "大文字が含まれる場合", args: args{args: []string{"DEF"}}, want: []string{"cde", "bcd", "abc", "zab", "yza", "xyz", "wxy", "vwx", "uvw", "tuv", "stu", "rst", "qrs", "pqr", "opq", "nop", "mno", "lmn", "klm", "jkl", "ijk", "hij", "ghi", "fgh", "efg"}},
+		{name: "小文字だけの場合", args: args{args: []string{"def"}}, want: []string{"cde", "bcd", "abc", "zab", "yza", "xyz", "wxy", "vwx", "uvw", "tuv", "stu", "rst", "qrs", "pqr", "opq", "nop", "mno", "lmn", "klm", "jkl", "ijk", "hij", "ghi", "fgh", "efg"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := caesar(tt.args.cmd, tt.args.args); !reflect.DeepEqual(got, tt.want) {
+			if got := caesar(tt.args.args); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("caesar() = %v, want %v", got, tt.want)
 			}
 		})
@@ -38,7 +36,8 @@ func Test_shiftASCIICODEs(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
+		{name: "単純にずらせば良いパターン1", args: args{runes: []rune("def"), shift: 3}, want: "abc"},
+		{name: "zからの計算がいるパターン1", args: args{runes: []rune("zae"), shift: 3}, want: "wxb"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
